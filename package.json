@@ -1,13 +1,14 @@
 {
-  "name": "ospace",
+  "name": "spatial-query-service",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.mjs",
   "scripts": {
-    "debug": "node server.mjs & open http://localhost:8000"
+    "debug": "node server.mjs & open http://localhost:8000",
+	"start": "node server.mjs"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "michael.beale@autodesk.com",
+  "license": "MIT",
   "dependencies": {
     "@fastify/static": "^6.8.0",
     "fastify": "^4.12.0",

@@ -5,7 +5,7 @@
   "main": "server.mjs",
   "scripts": {
     "debug": "node server.mjs & open http://localhost:8000",
-	"start": "node server.mjs"
+	"start": "node --optimize_for_size --max_old_space_size=460 server.mjs"
   },
   "author": "michael.beale@autodesk.com",
   "license": "MIT",

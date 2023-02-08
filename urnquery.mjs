@@ -42,7 +42,7 @@ export default class URNQuery {
         this.URN = `${URN}`;
         this.token = token;
 		this.ofrags = {};
-		this.load(URN);
+		this.frags = this.load(URN);
     }
 
 	getFileURL() {
@@ -59,14 +59,18 @@ export default class URNQuery {
 	load(URN) {
 		const buffr = fs.readFileSync("tmp/frags.fl");
 		const bufex = fs.readFileSync("tmp/extra.fl");
-		this.ofrags = _.unpackSync('frag',buffr);
-		var oextras = _.unpackSync('extra',bufex);
-		this.ofrags.frags.map((i, indx)=>{ 
-			i.polycount = oextras.extra[indx].polycount;
-			i.min = oextras.extra[indx].min;
-			i.max = oextras.extra[indx].max;
-			i.box = aabb(i.min, i.max);
+		const ofrags = _.unpackSync('frag',buffr);
+		const oextras = _.unpackSync('extra',bufex);
+		const frags = [];
+		ofrags.frags.map((i, indx)=>{ 
+			frags.push({
+				polycount: oextras.extra[indx].polycount,
+				min : oextras.extra[indx].min,
+				max : oextras.extra[indx].max,
+				dbId : i.dbId
+			});
 		});
+		return frags;
 	}
 
 	// szSectionBox format: [min_vec3, max_vec3].  Example [3040047,919000,0.1],[3140147,919900,15.0]
@@ -76,16 +80,16 @@ export default class URNQuery {
 		const sb = JSON.parse(`[${szSectionBox}]`)
 		const sectionBox =  aabb(sb[0],sb[1]);
 		const dbids = [];
-		if (!this.ofrags) return;
+		if (!this.frags) return;
 
-		this.ofrags.frags.map(i=>{
-			let istouching = (sectionBox) ? sectionBox.intersects(i.box) : true;
-			if ( (i.polycount > minPolyCount) && (i.box.mag > minAABBVolume) && istouching ) 
+		this.frags.map(i=>{
+			const box = new aabb(i.min, i.max);
+			let istouching = (sectionBox) ? sectionBox.intersects(box) : true;
+			if ( (i.polycount > minPolyCount) && (box.mag > minAABBVolume) && istouching ) 
 				dbids.push(i.dbId); 
 		});
 		const dedup = [...new Set(dbids)];
 		console.log(dbids.length, dedup.length)
 		return dedup
-	
 	}
 }

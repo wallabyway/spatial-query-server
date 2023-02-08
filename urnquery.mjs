@@ -1,4 +1,4 @@
-//decode Fragment.fl and extras.fl into AABB
+//PURPOSE: library to decode Fragment.fl and extras.fl into AABB
 
 import _ from './libs/c-struct/index.js';
 import aabb from "./libs/aabb-3d/index.js";

@@ -27,5 +27,14 @@ fastify.get('/api', async (request, reply) => {
 });
 
 // Run the server!
-const start = async () => { await fastify.listen({ host: '0.0.0.0', port: process.env.PORT || 8000 })};
+//const start = async () => { await fastify.listen({ host: process.env.HOST || '0.0.0.0', port: process.env.PORT || 8000 })};
+const start = async () => {
+	try {
+	  await fastify.listen({ host: process.env.HOST || '0.0.0.0', port: process.env.PORT || 8000 })  
+	} catch (err) {
+		fastify.log.error(err)
+	  process.exit(1)
+	}
+  }
+  start()
 start();

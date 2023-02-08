@@ -27,5 +27,5 @@ fastify.get('/api', async (request, reply) => {
 });
 
 // Run the server!
-const start = async () => { await fastify.listen({ port: process.env.PORT || 3000 })};
+const start = async () => { await fastify.listen({ host: '0.0.0.0', port: process.env.PORT || 8000 })};
 start();

@@ -3,9 +3,9 @@ Spatial Query Service for Forge Viewer.  Get minimal DBIDs for a floor/room/sect
 
 ## Demo:
 
-- Forge Viewer Demo:  https://spatial-query-server.herokuapp.com/
+- Forge Viewer Demo:  https://spatial-query-server.cyclic.app/
 
-- API endpoint: https://spatial-query-server.herokuapp.com/api?  ^parameters go here^
+- API endpoint: https://spatial-query-server.cyclic.app/api?  ^parameters go here^
 
 ### URL parameter inputs:
 
